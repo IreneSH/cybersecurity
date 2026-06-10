@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>網路安全三巨頭財報比較 ｜ CRWD / FTNT / PANW</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #141720;
+    --surface2: #1c2030;
+    --border: #252a3a;
+    --border-accent: #2e3650;
+    --text-primary: #e8eaf0;
+    --text-secondary: #8b91a8;
+    --text-muted: #555c78;
+    --accent-cyan: #38bdf8;
+    --accent-blue: #6366f1;
+    --accent-violet: #a78bfa;
+    --accent-emerald: #34d399;
+    --accent-amber: #fbbf24;
+    --accent-rose: #fb7185;
+    --crwd: #e84343;
+    --ftnt: #e85c12;
+    --panw: #1a6fe0;
+    --positive: #34d399;
+    --warning: #fbbf24;
+    --negative: #fb7185;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  /* ─── Header ─── */
+  .masthead {
+    background: linear-gradient(135deg, #0d0f14 0%, #111525 50%, #0d1222 100%);
+    border-bottom: 1px solid var(--border-accent);
+    padding: 48px 64px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 80% -20%, rgba(99,102,241,.12), transparent);
+  }
+  .masthead-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent-cyan);
+    margin-bottom: 12px;
+  }
+  .masthead h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    line-height: 1.35;
+    margin-bottom: 14px;
+  }
+  .masthead-meta {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 12px; color: var(--text-secondary);
+  }
+  .masthead-meta span { display: flex; align-items: center; gap: 6px; }
+  .ticker-badges {
+    display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap;
+  }
+  .badge {
+    padding: 4px 14px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+    letter-spacing: .08em;
+  }
+  .badge-crwd { background: rgba(232,67,67,.15); border: 1px solid rgba(232,67,67,.35); color: #f87171; }
+  .badge-ftnt { background: rgba(232,92,18,.15); border: 1px solid rgba(232,92,18,.35); color: #fb923c; }
+  .badge-panw { background: rgba(26,111,224,.15); border: 1px solid rgba(26,111,224,.35); color: #60a5fa; }
+
+  /* ─── Layout ─── */
+  .page { max-width: 1280px; margin: 0 auto; padding: 0 64px 80px; }
+
+  /* ─── Sections ─── */
+  .section { margin-top: 52px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 24px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+  .num-crwd { background: rgba(232,67,67,.2); color: #f87171; border: 1px solid rgba(232,67,67,.3); }
+  .num-blue { background: rgba(99,102,241,.2); color: #818cf8; border: 1px solid rgba(99,102,241,.3); }
+  .num-ai { background: rgba(52,211,153,.2); color: #34d399; border: 1px solid rgba(52,211,153,.3); }
+  .num-ftnt { background: rgba(232,92,18,.2); color: #fb923c; border: 1px solid rgba(232,92,18,.3); }
+  .num-panw { background: rgba(26,111,224,.2); color: #60a5fa; border: 1px solid rgba(26,111,224,.3); }
+
+  .section-header h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px; font-weight: 700;
+    letter-spacing: .03em;
+  }
+
+  /* ─── Cards ─── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 20px 24px;
+  }
+  .card + .card { margin-top: 12px; }
+  .card-title {
+    font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ─── KPI Grid ─── */
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
+    margin-bottom: 20px;
+  }
+  .kpi {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 14px 16px;
+  }
+  .kpi-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
+  .kpi-value { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 500; }
+  .kpi-sub { font-size: 11px; margin-top: 3px; }
+  .pos { color: var(--positive); }
+  .warn { color: var(--warning); }
+  .neg { color: var(--negative); }
+  .neu { color: var(--text-secondary); }
+  .highlight-crwd { border-left: 3px solid var(--crwd); }
+  .highlight-ftnt { border-left: 3px solid var(--ftnt); }
+  .highlight-panw { border-left: 3px solid var(--panw); }
+
+  /* ─── Tables ─── */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--surface2); }
+  th {
+    text-align: left; padding: 10px 14px;
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--text-secondary); border-bottom: 1px solid var(--border-accent);
+  }
+  th.th-crwd { color: #f87171; }
+  th.th-ftnt { color: #fb923c; }
+  th.th-panw { color: #60a5fa; }
+  td {
+    padding: 9px 14px; border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  td.metric-name { color: var(--text-secondary); font-size: 12px; font-weight: 500; }
+  td.mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+  /* ─── Prose ─── */
+  .prose { font-size: 13.5px; color: var(--text-primary); line-height: 1.8; }
+  .prose p { margin-bottom: 10px; }
+  .prose strong { color: #c8cfe8; font-weight: 600; }
+  .prose em { color: var(--accent-cyan); font-style: normal; }
+
+  /* ─── Company blocks ─── */
+  .company-block {
+    border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .company-block-header {
+    padding: 12px 20px; display: flex; align-items: center; gap: 12px;
+  }
+  .cb-crwd { background: rgba(232,67,67,.08); border-bottom: 1px solid rgba(232,67,67,.25); }
+  .cb-ftnt { background: rgba(232,92,18,.08); border-bottom: 1px solid rgba(232,92,18,.25); }
+  .cb-panw { background: rgba(26,111,224,.08); border-bottom: 1px solid rgba(26,111,224,.25); }
+  .company-block-body { padding: 16px 20px; background: var(--surface); }
+
+  /* ─── AI chip ─── */
+  .ai-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.25);
+    border-radius: 4px; padding: 2px 8px;
+    font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent-emerald);
+  }
+
+  /* ─── Tag ─── */
+  .tag {
+    display: inline-block; padding: 2px 7px; border-radius: 3px;
+    font-size: 10px; font-weight: 600; letter-spacing: .05em;
+  }
+  .tag-beat { background: rgba(52,211,153,.15); color: #34d399; border: 1px solid rgba(52,211,153,.3); }
+  .tag-inline { background: rgba(251,191,36,.15); color: #fbbf24; border: 1px solid rgba(251,191,36,.3); }
+  .tag-miss { background: rgba(251,113,133,.15); color: #fb7185; border: 1px solid rgba(251,113,133,.3); }
+
+  /* ─── Product pills ─── */
+  .product-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .product-pill {
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 500;
+    background: var(--surface2); border: 1px solid var(--border-accent);
+    color: var(--text-secondary);
+  }
+  .product-pill.hot {
+    background: rgba(99,102,241,.12); border-color: rgba(99,102,241,.3);
+    color: #a5b4fc;
+  }
+
+  /* ─── Quote blocks ─── */
+  .quote-block {
+    border-left: 3px solid var(--accent-violet);
+    margin: 12px 0; padding: 10px 16px;
+    background: rgba(167,139,250,.05); border-radius: 0 4px 4px 0;
+    font-size: 13px; color: var(--text-secondary); font-style: italic;
+  }
+  .quote-block cite {
+    display: block; margin-top: 6px;
+    font-style: normal; font-size: 11px;
+    color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ─── Section dividers ─── */
+  .sub-title {
+    font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--accent-cyan); margin: 18px 0 10px;
+  }
+
+  /* ─── Comparison table special styling ─── */
+  .comp-table th { padding: 10px 16px; }
+  .comp-table td { padding: 10px 16px; }
+  .winner-cell { color: var(--positive); font-weight: 600; }
+  .mid-cell { color: var(--warning); }
+
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--border-accent); border-radius: 3px; }
+
+  /* ─── Footer ─── */
+  .footer {
+    margin-top: 60px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-muted); text-align: center;
+  }
+
+  /* ─── 2-col layout ─── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } .page { padding: 0 20px 60px; } .masthead { padding: 32px 20px 24px; } }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     MASTHEAD
+══════════════════════════════════════════════ -->
+<div class="masthead">
+  <div class="masthead-eyebrow">Investment Research ｜ Cybersecurity Sector</div>
+  <h1>網路安全三巨頭財報比較報告<br>CrowdStrike × Fortinet × Palo Alto Networks</h1>
+  <div class="masthead-meta">
+    <span>📅 報告日期：2026-06-04</span>
+    <span>📋 覆蓋季度：CRWD Q1 FY27 ／ FTNT Q1 2026 ／ PANW Q3 FY26</span>
+    <span>🌐 主題重點：AI對資安需求的結構性影響</span>
+  </div>
+  <div class="ticker-badges">
+    <span class="badge badge-crwd">CRWD Q1 FY27 ｜ 2026-06-04</span>
+    <span class="badge badge-ftnt">FTNT Q1 2026 ｜ 2026-05-07</span>
+    <span class="badge badge-panw">PANW Q3 FY26 ｜ 2026-06-02</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ══════════════════════════════════════════════
+     SECTION 1: CrowdStrike 財報 + 公司產品
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num num-crwd">1</span>
+    <h2>CrowdStrike（CRWD）Q1 FY27 財報更新</h2>
+    <span class="ai-chip">🛡 Falcon平台</span>
+  </div>
+
+  <!-- 公司產品簡介 -->
+  <div class="card" style="border-left: 3px solid var(--crwd); margin-bottom: 20px;">
+    <div class="card-title" style="color: #f87171;">公司產品架構介紹</div>
+    <div class="prose">
+      <p>CrowdStrike 的核心產品是 <strong>Falcon 平台</strong>——一個建立在單一雲端架構上的統一資安平台，透過部署在端點上的輕量化感應器（sensor）蒐集遙測資料，由雲端 AI 引擎（Threat Graph）進行即時分析，涵蓋以下三大模組群：</p>
+    </div>
+    <div class="product-grid" style="margin-top: 12px;">
+      <span class="product-pill hot">Falcon Endpoint（EDR/AIDR）</span>
+      <span class="product-pill hot">Falcon Identity</span>
+      <span class="product-pill hot">Charlotte AI（AI SOC助理）</span>
+      <span class="product-pill hot">Next-Gen SIEM</span>
+      <span class="product-pill hot">Falcon Shield（SaaS/Agent安全）</span>
+      <span class="product-pill hot">AIDR（AI Detection & Response）</span>
+      <span class="product-pill">Falcon Cloud Security（CNAPP）</span>
+      <span class="product-pill">Falcon Exposure Management（CIEM/漏洞）</span>
+      <span class="product-pill">Falcon for IT</span>
+      <span class="product-pill">Signal（SGNL，非人類身份授權）</span>
+      <span class="product-pill">AgentWorks（AI Agent生態系）</span>
+      <span class="product-pill">Falcon Flex（彈性訂閱模式）</span>
+    </div>
+    <div class="prose" style="margin-top: 14px;">
+      <p><strong>本季最重要新產品：AIDR（AI Detection & Response）</strong>——針對 AI Agent 在端點執行時的行為進行即時偵測與回應。CrowdStrike 強調，Falcon 的 runtime sensor 本就部署於端點，天然具備監控 AI Agent 行為的能力；AIDR 從零開始、在不到兩季內達到 ARR 年成長 <em>250%（QoQ）</em>，Q2 pipeline 已超過 $50M，CEO Kurtz 稱這是「職業生涯中見過最快的採用速度」。</p>
+      <p><strong>Falcon Flex</strong> 是公司的主要商業化工具：客戶預付一筆承諾金額，可彈性取用平台上任何模組，形成黏性極強的擴張飛輪（Re-Flex 客戶達 480，平均擴張金額 +26%）。</p>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="sub-title">📊 Q1 FY27 關鍵財務指標</div>
+  <div class="kpi-grid">
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">總營收</div>
+      <div class="kpi-value">$1.39B</div>
+      <div class="kpi-sub pos">+26% YoY ｜ 連四季加速</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">訂閱收入</div>
+      <div class="kpi-value">$1.32B</div>
+      <div class="kpi-sub pos">+26% YoY</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">專業服務</div>
+      <div class="kpi-value">$64.8M</div>
+      <div class="kpi-sub pos">+23% YoY</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">期末 ARR</div>
+      <div class="kpi-value">$5.51B</div>
+      <div class="kpi-sub pos">+24% YoY ｜ 加速（vs Q4）</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">淨新增 ARR（Net-new ARR）</div>
+      <div class="kpi-value">$255.8M</div>
+      <div class="kpi-sub pos">+32% YoY ｜ Q1歷史新高</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">毛利率（Non-GAAP）</div>
+      <div class="kpi-value">79%</div>
+      <div class="kpi-sub pos">Q1歷史新高 ｜ 訂閱毛利81%（+90bps）</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">營業利益（Non-GAAP）</div>
+      <div class="kpi-value">$325.7M</div>
+      <div class="kpi-sub pos">24%利益率 ｜ +530bps YoY ｜ Q1新高</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">自由現金流</div>
+      <div class="kpi-value">$468.5M</div>
+      <div class="kpi-sub pos">34% FCF率 ｜ 歷史新高</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">GAAP淨利</div>
+      <div class="kpi-value">$27.8M</div>
+      <div class="kpi-sub pos">連續正值</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">Non-GAAP EPS</div>
+      <div class="kpi-value">$1.10</div>
+      <div class="kpi-sub pos">Q1歷史新高 ｜ 超越指引</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">Rule of 40</div>
+      <div class="kpi-value">59</div>
+      <div class="kpi-sub pos">連四季上升</div>
+    </div>
+    <div class="kpi highlight-crwd">
+      <div class="kpi-label">現金及約當現金</div>
+      <div class="kpi-value">$4.55B</div>
+      <div class="kpi-sub neu">季回購 $176M股票</div>
+    </div>
+  </div>
+
+  <!-- 子指標 -->
+  <div class="two-col" style="margin-top: 12px;">
+    <div class="card">
+      <div class="card-title" style="color: var(--text-secondary);">平台模組 ARR 進展</div>
+      <table>
+        <tr><td class="metric-name">Next-Gen SIEM ARR</td><td class="mono pos">&gt;$600M（占整體 ARR 約 11%）<br><span style="font-size:11px;color:var(--text-secondary);">上季 Q4 FY26 為 $585M，本季淨新增約 +$15M；SIEM 單項業務規模已可獨立成為中型軟體公司</span></td></tr>
+        <tr><td class="metric-name">Cloud+Identity+SIEM 合計 ARR</td><td class="mono pos">&gt;$2B（占整體 ARR 約 36%）<br><span style="font-size:11px;color:var(--text-secondary);">CRWD 三年前以端點為主（endpoint 占比 ~90%+），現在非端點業務已達整體三分之一以上，平台擴張論文正在兌現</span></td></tr>
+        <tr><td class="metric-name">Falcon Flex 訂閱 ARR</td><td class="mono pos">&gt;$1.9B，+99% YoY</td></tr>
+        <tr><td class="metric-name">Charlotte AI ARR</td><td class="mono pos">環比 Q4 加速</td></tr>
+        <tr><td class="metric-name">Falcon Shield ARR</td><td class="mono pos">+4x YoY（SaaS agented安全）</td></tr>
+        <tr><td class="metric-name">AIDR（新產品）</td><td class="mono pos">QoQ +250%，Q2 pipeline &gt;$50M</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color: var(--text-secondary);">Falcon Flex 飛輪指標</div>
+      <table>
+        <tr><td class="metric-name">本季新增 Flex 帳戶</td><td class="mono">300+</td></tr>
+        <tr><td class="metric-name">Re-Flex 客戶數</td><td class="mono">480（佔Flex 25%）</td></tr>
+        <tr><td class="metric-name">平均 Re-Flex 擴張金額</td><td class="mono pos">+26%</td></tr>
+        <tr><td class="metric-name">平均 Re-Flex 時間</td><td class="mono">7個月（早於合約到期）</td></tr>
+        <tr><td class="metric-name">多次 Re-Flex 客戶數</td><td class="mono">130+</td></tr>
+        <tr><td class="metric-name">多次 Re-Flex 平均 ARR 擴張</td><td class="mono pos">+51% vs 初始Flex</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Guidance -->
+  <div class="sub-title" style="margin-top: 20px;">🔭 財測（Guidance）</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="color: var(--accent-cyan);">Q2 FY27 指引</div>
+      <table>
+        <tr><td class="metric-name">ARR（期末）</td><td class="mono">$5.793B – $5.795B（+24% YoY）</td></tr>
+        <tr><td class="metric-name">淨新增 ARR</td><td class="mono">$284M – $286M（+28~29% YoY）</td></tr>
+        <tr><td class="metric-name">總營收</td><td class="mono">$1.436B – $1.442B（+23% YoY）</td></tr>
+        <tr><td class="metric-name">Non-GAAP 營業利益</td><td class="mono">$346M – $349M</td></tr>
+        <tr><td class="metric-name">Non-GAAP EPS（調整前股分）</td><td class="mono">$1.16 – $1.17</td></tr>
+        <tr><td class="metric-name">Non-GAAP EPS（4:1分割後）</td><td class="mono pos">約 $0.29</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color: var(--accent-cyan);">FY27 全年指引（上調）</div>
+      <table>
+        <tr><td class="metric-name">ARR（年末期末）</td><td class="mono">$6.532B – $6.556B（+24~25%）</td></tr>
+        <tr><td class="metric-name">淨新增 ARR（全年）</td><td class="mono pos">$1.279B – $1.303B（中值 $1.291B）<br><span style="font-size:11px;color:var(--text-secondary);">FY27 NNARR 成長率 +27.7%（中值），較 FY26 的 +25% YoY 進一步加速</span></td></tr>
+        <tr><td class="metric-name">較前次指引上調幅度</td><td class="mono pos">絕對金額：+$52M（前次中值 ~$1.239B → 新中值 $1.291B）<br>成長率：+520bps（~23% → ~28%）<br><span style="font-size:11px;color:var(--text-secondary);">上調幅度是本季 NNARR beat 金額（~$7M）的 7~8 倍；代表管理層的信心不來自季度執行，而是對後續需求拐點的真實預期</span></td></tr>
+        <tr><td class="metric-name">總營收</td><td class="mono">$5.915B – $5.959B（+23~24%）</td></tr>
+        <tr><td class="metric-name">Non-GAAP EPS（分割前）</td><td class="mono">$4.88 – $4.96</td></tr>
+        <tr><td class="metric-name">FCF Margin（全年）</td><td class="mono pos">≥30%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Earnings Call 整理 -->
+  <div class="sub-title" style="margin-top: 24px;">🎙 Earnings Call 重點整理</div>
+
+  <div class="card" style="margin-bottom: 12px;">
+    <div class="card-title" style="color: #f87171;">管理層開場陳述 — 核心主題</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div>
+        <p style="font-size:12px; font-weight:700; color:var(--accent-cyan); margin-bottom:6px;">① Mythos 時刻——AI與資安的碰撞</p>
+        <div class="prose">
+          <p>CEO Kurtz 將2026年4月稱為「Mythos Inflection Moment」：Anthropic 推出 Claude Mythos 後，CRWD 是唯一同時被 Anthropic（Project Glasswing）與 OpenAI（Trusted Access for Cyber）選為首批資安合作夥伴的資安業者。Mythos 被定性為「資安界的 Y2K 時刻」——讓企業 CEO/董事會開始主動詢問資安預算。</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px; font-weight:700; color:var(--accent-cyan); margin-bottom:6px;">② AI 創造資安需求的兩大路徑</p>
+        <div class="prose">
+          <p><strong>路徑A</strong>：部署 AI 本身需要資安（AI 是攻擊面）；<strong>路徑B</strong>：AI 基礎設施爆炸性成長（GPU、NeoCloud、Data Center、Agent Apps）每個都需要資安。Kurtz 稱 CRWD 是「全球最大科技淘金潮的鏟子供應商」。</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px; font-weight:700; color:var(--accent-cyan); margin-bottom:6px;">③ AIDR 是下一個成長支柱</p>
+        <div class="prose">
+          <p>AIDR（AI Detection & Response）在兩季內 ARR 成長 250%（QoQ），Q2 pipeline 超過 $50M，理由是「平均每位員工會有90個 AI agent，每個都需要保護，TAM 比 EDR 更大」。Falcon sensor 天然就在端點，具備監控 Agent 行為的架構優勢。</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px; font-weight:700; color:var(--accent-cyan); margin-bottom:6px;">④ Project QuiltWorks — 生態系動員</p>
+        <div class="prose">
+          <p>推出 QuiltWorks 聯盟，整合 Accenture、EY、IBM、Kroll、OpenAI、Cognizant、HCLTech、Infosys、KPMG 等，協助客戶進行「Mythos 就緒評估」（漏洞發現→排序→修補→執行委員會報告）。保險公司 Coalition、Liberty Mutual、Lockton 等也加入，開始承保 Frontier AI 模型風險。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color: #f87171;">Q&A 重點彙整（依主題）</div>
+    <table style="font-size:12.5px;">
+      <thead><tr><th>主題</th><th>關鍵問答摘要</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="metric-name" style="width:22%;">FY27指引上調的驅動力</td>
+          <td>CFO Podbere：主要來自①模組採用率加速②保留率持強③Q2創記錄pipeline④Mythos 帶來的新需求拐點。ARR 季節性調整為上半年42%、下半年58%（原預期上半年占比更低）。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Mythos需求轉折時間點</td>
+          <td>Kurtz：3月底RSA就開始，每個客戶會議主題都是「如何保護 AI workload」；Mythos（4月）後如火如荼，「幾千個客戶briefing」。CEO 被問的問題已從「AI是否取代資安」轉變為「我怎麼保護我的AI」。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">AI增量預算 vs. 重分配</td>
+          <td>Kurtz 明確表示 AI 資安支出是<strong>增量的</strong>（非現有資安預算重分配）：「兩年前沒有token預算，現在突然有了，公司在裡面找到了錢」。「如果你要創造 AI，你需要 GPU；如果你要使用 AI，你需要資安」。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">AIDR 競爭優勢</td>
+          <td>Kurtz 稱競爭對手可能提供 AI 能見度（visibility），但「只有 CrowdStrike 可以在 AI 真正運行的地方做偵測、阻斷與回應」，因為 Falcon sensor 本就在端點。AIDR 市場比 EDR 更大（90 agents per employee）。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">身份安全在 Agentic 時代</td>
+          <td>Kurtz：SGNL 收購帶來非人類身份（NHI）管控能力，提供「零常設權限」（zero standing privileges）授權平台。某客戶稱使用 SGNL 讓身份建立時間從2週縮短至2分鐘。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">雲端安全亮點</td>
+          <td>Kurtz：Agentic 時代的雲安全重心從 Posture 轉移到 Runtime 保護，長期運行的容器式 AI workload 需要 runtime enforcement，是 Falcon 的架構優勢。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">定價模型演進</td>
+          <td>Kurtz：Flex 授權模型已預先設計 token/credit 消費模式，未來可能引入 token-based pricing；現在先確保 Flex 的採用深度，再伺機切換。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">Next-Gen SIEM 資料飛輪</td>
+          <td>Kurtz：Agentic 世界的核心是資料；CRWD 的 SIEM 定價以第三方 ingest 收費（非全量），成本競爭力顯著，促使客戶把更多資料送入 SIEM，形成越大越聰明的資料護城河。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">聯邦政府 AI 行政命令</td>
+          <td>Kurtz 讚揚行政命令，認為聯邦政府升級 AI 安全基礎建設將為 CRWD 帶來長期尾風，「網路安全就是國家安全」。</td>
+        </tr>
+        <tr>
+          <td class="metric-name">股票分割</td>
+          <td>CFO 宣布 4:1 正向股票分割，記錄日 2026-06-25，生效日 2026-07-01（分割後掛牌 2026-07-02），提升散戶可及性。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 2: Fortinet 財報
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num num-ftnt">2</span>
+    <h2>Fortinet（FTNT）Q1 2026 財報更新</h2>
+    <span class="ai-chip">🛡 FortiOS Platform</span>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">總帳單（Billings）</div>
+      <div class="kpi-value">$2.09B</div>
+      <div class="kpi-sub pos">+31% YoY ｜ 超越指引上限</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">總營收</div>
+      <div class="kpi-value">$1.85B</div>
+      <div class="kpi-sub pos">+20% YoY</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">產品收入</div>
+      <div class="kpi-value">$645M</div>
+      <div class="kpi-sub pos">+41% YoY ｜ 含AI資料中心需求</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">服務收入</div>
+      <div class="kpi-value">$1.21B</div>
+      <div class="kpi-sub warn">+11% YoY ｜ 服務帳單+27%（領先指標）</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">Non-GAAP 毛利率</div>
+      <div class="kpi-value">81%</div>
+      <div class="kpi-sub pos">優於預期（儘管產品收入佔比上升）</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">Non-GAAP 營業利益率</div>
+      <div class="kpi-value">35.8%</div>
+      <div class="kpi-sub pos">Q1歷史新高 ｜ +160bps YoY</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">GAAP 營業利益率</div>
+      <div class="kpi-value">31.4%</div>
+      <div class="kpi-sub pos">業內最高之一</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">Non-GAAP EPS</div>
+      <div class="kpi-value">$0.82</div>
+      <div class="kpi-sub pos">+41% YoY（大幅超越營收成長）</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">GAAP EPS</div>
+      <div class="kpi-value">$0.72</div>
+      <div class="kpi-sub pos">+29% YoY</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">自由現金流</div>
+      <div class="kpi-value">$1.01B</div>
+      <div class="kpi-sub pos">歷史新高 ｜ FCF率58%</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">調整後 FCF</div>
+      <div class="kpi-value">$1.07B</div>
+      <div class="kpi-sub pos">+27% YoY</div>
+    </div>
+    <div class="kpi highlight-ftnt">
+      <div class="kpi-label">GAAP OM + 營收成長合計</div>
+      <div class="kpi-value">51</div>
+      <div class="kpi-sub pos">業內最高之一</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:12px;">
+    <div class="card">
+      <div class="card-title" style="color:#fb923c;">三大業務柱帳單成長</div>
+      <table>
+        <tr><td class="metric-name">Secure Networking（含FortiGate）</td><td class="mono pos">+32% YoY</td></tr>
+        <tr><td class="metric-name">— OT Security 子項</td><td class="mono pos">+70% YoY（特別亮眼）</td></tr>
+        <tr><td class="metric-name">Unified SASE（含SD-WAN）</td><td class="mono pos">+31% YoY</td></tr>
+        <tr><td class="metric-name">AI-driven SecOps</td><td class="mono pos">+23% YoY</td></tr>
+        <tr><td class="metric-name">大型企業 &gt;$1M 交易件數及金額</td><td class="mono pos">各+60%以上</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#fb923c;">Guidance（上調）</div>
+      <table>
+        <tr><td class="metric-name">Q2 帳單</td><td class="mono">$2.09B–$2.19B（中值+20%）</td></tr>
+        <tr><td class="metric-name">Q2 營收</td><td class="mono">$1.83B–$1.93B（中值+15%）</td></tr>
+        <tr><td class="metric-name">FY2026 帳單（全年）</td><td class="mono">$8.8B–$9.1B（中值+18%）</td></tr>
+        <tr><td class="metric-name">FY2026 營收（全年）</td><td class="mono">$7.71B–$7.87B（中值+15%）</td></tr>
+        <tr><td class="metric-name">FY2026 服務收入</td><td class="mono">$5.09B–$5.15B（中值+12%）</td></tr>
+        <tr><td class="metric-name">FY2026 Non-GAAP EPS</td><td class="mono">$3.10–$3.16</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 3: Palo Alto Networks 財報
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num num-panw">3</span>
+    <h2>Palo Alto Networks（PANW）Q3 FY26 財報更新</h2>
+    <span class="ai-chip">🛡 Platformization Strategy</span>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">NGS ARR</div>
+      <div class="kpi-value">$8.13B</div>
+      <div class="kpi-sub pos">+60% YoY（含CyberArk/Chronosphere）｜有機+28%</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">總營收</div>
+      <div class="kpi-value">$3.0B</div>
+      <div class="kpi-sub pos">+31% YoY</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">產品收入</div>
+      <div class="kpi-value">$594M</div>
+      <div class="kpi-sub pos">+31% YoY（含軟體防火牆、Prisma AIRS）</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">服務收入</div>
+      <div class="kpi-value">$2.4B</div>
+      <div class="kpi-sub pos">+31% YoY</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">RPO（剩餘履約義務）</div>
+      <div class="kpi-value">$18.4B</div>
+      <div class="kpi-sub pos">+36% YoY（有機+22%）</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">Current RPO</div>
+      <div class="kpi-value">$8.3B</div>
+      <div class="kpi-sub pos">+34% YoY（有機+17%，加速 vs Q2 +15%）</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">毛利率（Non-GAAP）</div>
+      <div class="kpi-value">75.8%</div>
+      <div class="kpi-sub warn">服務毛利75.1%（混入高成長SaaS）</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">Non-GAAP 營業利益率</div>
+      <div class="kpi-value">21.3%</div>
+      <div class="kpi-sub warn">YoY持平（整合成本稀釋）</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">Non-GAAP EPS</div>
+      <div class="kpi-value">$0.85</div>
+      <div class="kpi-sub pos">超越指引高端 $0.05</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">GAAP EPS</div>
+      <div class="kpi-value">-$0.22</div>
+      <div class="kpi-sub neg">因收購相關費用（含SBC、整合成本）</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">調整後 FCF</div>
+      <div class="kpi-value">$910M</div>
+      <div class="kpi-sub pos">+57% YoY ｜ TTM $4.08B（38.5%率）</div>
+    </div>
+    <div class="kpi highlight-panw">
+      <div class="kpi-label">季回購金額</div>
+      <div class="kpi-value">$1.0B</div>
+      <div class="kpi-sub neu">回購6.8M股，剩餘授權$1B</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:12px;">
+    <div class="card">
+      <div class="card-title" style="color:#60a5fa;">各業務 ARR / 關鍵指標</div>
+      <table>
+        <tr><td class="metric-name">SASE ARR</td><td class="mono pos">$1.6B，+40% YoY</td></tr>
+        <tr><td class="metric-name">Software Firewall ARR</td><td class="mono pos">+25% YoY</td></tr>
+        <tr><td class="metric-name">XSIAM ARR（AI SOC）</td><td class="mono pos">&gt;$600M，+100% YoY，740客戶</td></tr>
+        <tr><td class="metric-name">Chronosphere ARR（可觀測性）</td><td class="mono pos">&gt;$300M，Q2→Q3 +50%</td></tr>
+        <tr><td class="metric-name">次世代防火牆訂單（硬體）</td><td class="mono pos">+40% YoY ｜ 十年最強</td></tr>
+        <tr><td class="metric-name">Prisma AIRS 客戶數</td><td class="mono pos">300+（vs Q2的100，翻三倍）</td></tr>
+        <tr><td class="metric-name">Platformized 客戶</td><td class="mono">~2,280（含CyberArk/Chronosphere客戶）</td></tr>
+        <tr><td class="metric-name">平台客戶淨保留率</td><td class="mono pos">120%</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#60a5fa;">Q4 FY26 及 FY26 全年指引</div>
+      <table>
+        <tr><td class="metric-name">Q4 NGS ARR</td><td class="mono">$8.9B–$8.95B（+59~60%）</td></tr>
+        <tr><td class="metric-name">Q4 RPO</td><td class="mono">$20.9B–$21B（+32~33%）</td></tr>
+        <tr><td class="metric-name">Q4 營收</td><td class="mono">$3.345B–$3.355B（+32%）</td></tr>
+        <tr><td class="metric-name">Q4 Non-GAAP EPS</td><td class="mono">$0.96–$0.98</td></tr>
+        <tr><td class="metric-name">FY26 全年營收</td><td class="mono">$11.415B–$11.425B（+24%）</td></tr>
+        <tr><td class="metric-name">FY26 Non-GAAP OM</td><td class="mono">28.9%–29.2%</td></tr>
+        <tr><td class="metric-name">FY26 Non-GAAP EPS</td><td class="mono">$3.77–$3.79</td></tr>
+        <tr><td class="metric-name">FY26 調整後 FCF Margin</td><td class="mono pos">37.5%（目標FY28達40%）</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 4: 三家財報比較表
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num num-blue">4</span>
+    <h2>三家公司財報比較表</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📌 注意：各家財年不同｜CRWD Q1 FY27 ≈ Feb–Apr 2026；FTNT Q1 2026 = Jan–Mar 2026；PANW Q3 FY26 = Feb–Apr 2026</div>
+    <div class="table-wrap" style="margin-top:14px;">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>指標</th>
+            <th class="th-crwd">CRWD<br><span style="font-weight:400;font-size:10px;color:var(--text-muted);">Q1 FY27（Feb-Apr'26）</span></th>
+            <th class="th-ftnt">FTNT<br><span style="font-weight:400;font-size:10px;color:var(--text-muted);">Q1 2026（Jan-Mar'26）</span></th>
+            <th class="th-panw">PANW<br><span style="font-weight:400;font-size:10px;color:var(--text-muted);">Q3 FY26（Feb-Apr'26）</span></th>
+            <th>評論</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="metric-name">季度營收</td>
+            <td class="mono">$1.39B<br><span class="pos">+26% YoY</span></td>
+            <td class="mono">$1.85B<br><span class="pos">+20% YoY</span></td>
+            <td class="mono">$3.0B<br><span class="pos">+31% YoY</span></td>
+            <td style="font-size:12px;">PANW 體量最大；CRWD 成長速度加速且動能最佳</td>
+          </tr>
+          <tr>
+            <td class="metric-name">訂單/ARR 成長率</td>
+            <td class="mono">Net-new ARR +32% <br><span class="pos">（加速）</span></td>
+            <td class="mono">Billings +31%<br><span class="pos">（實質）</span></td>
+            <td class="mono">Organic NGS ARR +28%<br><span class="pos">（含收購+60%）</span></td>
+            <td style="font-size:12px;">三家Bookings/ARR動能皆呈加速，CRWD領先指標最強</td>
+          </tr>
+          <tr>
+            <td class="metric-name">Non-GAAP 毛利率</td>
+            <td class="mono winner-cell">79%</td>
+            <td class="mono winner-cell">81%</td>
+            <td class="mono mid-cell">75.8%</td>
+            <td style="font-size:12px;">FTNT 毛利率最高（硬體ASIC優勢）；PANW 因整合成本承壓</td>
+          </tr>
+          <tr>
+            <td class="metric-name">Non-GAAP 營業利益率</td>
+            <td class="mono">24%<br><span class="pos">+530bps YoY</span></td>
+            <td class="mono winner-cell">35.8%<br><span class="pos">Q1新高</span></td>
+            <td class="mono mid-cell">21.3%<br><span class="warn">YoY持平</span></td>
+            <td style="font-size:12px;">FTNT 盈利能力最強；CRWD 擴張速度最快；PANW 因大型收購壓縮中</td>
+          </tr>
+          <tr>
+            <td class="metric-name">自由現金流（率）</td>
+            <td class="mono">$468M（34%）</td>
+            <td class="mono winner-cell">$1.01B（58%）</td>
+            <td class="mono">$910M（38.5% TTM）</td>
+            <td style="font-size:12px;">FTNT FCF率遠超同業；CRWD加速擴張中；PANW TTM接近40%目標</td>
+          </tr>
+          <tr>
+            <td class="metric-name">GAAP 盈利性</td>
+            <td class="mono pos">+$27.8M（正值）</td>
+            <td class="mono pos">+$0.72 EPS（正值）</td>
+            <td class="mono neg">-$0.22 EPS（負值）</td>
+            <td style="font-size:12px;">PANW GAAP虧損因收購SBC攤銷；FTNT唯一實現高利潤率</td>
+          </tr>
+          <tr>
+            <td class="metric-name">硬體/產品需求</td>
+            <td class="mono">N/A（純軟體模型）</td>
+            <td class="mono pos">產品收入 +41%<br>（AI DC推動）</td>
+            <td class="mono pos">防火牆訂單+40%<br>十年最強</td>
+            <td style="font-size:12px;">AI基礎設施建設潮明顯推升FTNT和PANW的硬體需求；CRWD不適用</td>
+          </tr>
+          <tr>
+            <td class="metric-name">AI相關新產品ARR加速</td>
+            <td class="mono pos winner-cell">AIDR +250% QoQ<br>（近乎從零開始）</td>
+            <td class="mono">SecOps Billings +23%<br>（20+個AI產品）</td>
+            <td class="mono pos">Prisma AIRS：100→300客戶<br>（Q2→Q3翻三倍）</td>
+            <td style="font-size:12px;">CRWD AIDR 採用速度驚人；PANW Prisma AIRS 也快速爬坡</td>
+          </tr>
+          <tr>
+            <td class="metric-name">全年指引上調幅度</td>
+            <td class="mono pos winner-cell">NNARR 前次中值 ~$1.239B<br>→ 新中值 $1.291B（+$52M）<br>成長率 ~23% → ~28%（+520bps）<br>且 FY27 成長率超越 FY26（+25%）</td>
+            <td class="mono pos">帳單/營收均上調<br>（幅度溫和）</td>
+            <td class="mono pos">全部指標上調<br>（最大體量上調）</td>
+            <td style="font-size:12px;">CRWD 上調幅度（相對基數）最具說服力；PANW 絕對金額最大</td>
+          </tr>
+          <tr>
+            <td class="metric-name">近期重大收購</td>
+            <td class="mono">SGNL（身份）<br>Seraphic（SaaS安全）</td>
+            <td class="mono">無</td>
+            <td class="mono neg">CyberArk（身份，大型）<br>Chronosphere（可觀測性）<br>Koi（端點AI）<br>Portkey（AI閘道）</td>
+            <td style="font-size:12px;">PANW積極大型M&A，衝擊短期利潤但擴大平台；FTNT有機成長為主</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 5: AI主題管理層說法比較
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num num-ai">5</span>
+    <h2>AI對資安業務的影響 — 三家管理層說法比較</h2>
+  </div>
+
+  <!-- Sub-theme A: AI如何影響需求 -->
+  <div class="sub-title">A. AI如何驅動資安需求？管理層定性分析</div>
+
+  <div class="company-block">
+    <div class="company-block-header cb-crwd">
+      <span class="badge badge-crwd">CRWD</span>
+      <strong>George Kurtz（CEO & Founder）</strong>
+    </div>
+    <div class="company-block-body">
+      <div class="quote-block">
+        "The more AI an organization adopts, the more cybersecurity it requires. AI adoption is not a nice-to-have; it's an existential imperative... CrowdStrike is now being understood as critical AI infrastructure."
+        <cite>— George Kurtz, CRWD Q1 FY27 Earnings Call</cite>
+      </div>
+      <div class="prose">
+        <p>Kurtz 把 AI 對資安需求的影響分為兩個直接機制：<strong>①AI 本身是攻擊面</strong>（每個 AI agent、每個 AI 工具都需要保護）；<strong>②AI 基礎設施的爆炸性建設</strong>（GPU、NeoCloud、data center、agentic app 都需要 sensor 覆蓋）。</p>
+        <p>更重要的是他強調「Mythos 時刻」改變了市場的敘事邏輯：<em>資安不再只是風險管理，而是 AI 採用的戰略加速器</em>。客戶的問題從「我要花多少預算在資安？」變成「我要如何保護我的 AI 讓我去得更快？」。AI 帶來的是<strong>增量預算</strong>，而非既有資安預算的重分配。</p>
+        <p>對於 AIDR 這個新品類，Kurtz 強調「每位員工未來平均 90 個 AI agent，TAM 比 EDR 更大」，且 Falcon 的 runtime sensor 天然具備保護 agent 的架構優勢。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="company-block">
+    <div class="company-block-header cb-ftnt">
+      <span class="badge badge-ftnt">FTNT</span>
+      <strong>Ken Xie（CEO & Founder）</strong>
+    </div>
+    <div class="company-block-body">
+      <div class="quote-block">
+        "AI accelerates the convergence of network and network security. You need to use AI to secure AI. OT security is protecting the bottom few layers of the AI five-layer cake."
+        <cite>— Ken Xie, FTNT Q1 2026 Earnings Call</cite>
+      </div>
+      <div class="prose">
+        <p>Ken Xie 的說法最為「硬體導向」。他把 AI 對 Fortinet 的影響分為三層：</p>
+        <p><strong>①AI 資料中心建設（硬體需求）</strong>：AI 推動了龐大的基礎設施 capex，客戶需要高吞吐量、低延遲的防火牆（FortiGate + ASIC 的核心優勢）進行 east-west segmentation，以及邊界保護。Fortinet 已拿下多個 AI 資料中心標案。</p>
+        <p><strong>②OT 安全爆炸（AI 五層蛋糕底層）</strong>：OT billings 在 Q1 成長超過 70%，Ken Xie 強調 OT 是「AI 基礎設施最底層」（能源、電網、工廠），而 Fortinet 是 OT 安全的唯一領導者，受益非常直接。</p>
+        <p><strong>③AI 工具對企業的攻擊面擴展</strong>：Shadow AI、agent traffic 增加了 east-west 流量，需要 FortiGate 做 segmentation 和 FortiAI Gate 做 traffic 可見性。CFO Ohlgart 補充，非建置 AI 的企業客戶最擔心的是「traffic flows 和 shadow AI」。</p>
+        <p>Xie 的觀點是：<em>AI 是 Fortinet 30 年投資 ASIC 的「還債時刻」</em>，同時也帶來「比 COVID 時期更持久的需求」（因為不是一次性需求，而是持續威脅升級）。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="company-block">
+    <div class="company-block-header cb-panw">
+      <span class="badge badge-panw">PANW</span>
+      <strong>Nikesh Arora（CEO）</strong>
+    </div>
+    <div class="company-block-body">
+      <div class="quote-block">
+        "Mark my words, Mythos has increased the terminal value of the entire cybersecurity industry... We officially declare SaaS eclipse with cybersecurity dead."
+        <cite>— Nikesh Arora, PANW Q3 FY26 Earnings Call</cite>
+      </div>
+      <div class="prose">
+        <p>Arora 的說法最為「宏觀戰略」，強調三個結構性催化劑：</p>
+        <p><strong>①機器速度的攻擊壓縮了人工回應的時間窗口</strong>：Unit 42 研究員用 Mythos 在 25 分鐘內完成完整勒索軟體攻擊（傳統需要數月），但一般企業偵測一個攻擊仍需數天，這個「偵測時差」讓 XSIAM 的 AI-driven 自動回應變成必需品而非選配。</p>
+        <p><strong>②AI 資料中心對硬體防火牆的拉動</strong>：「更多流量需要更多檢測，而硬體是最便宜、最快速的吞吐機制」——PANW 的次世代防火牆訂單在 Q3 成長近 40%，是十年來最強。Arora 預期這個趨勢可持續數季到數年。</p>
+        <p><strong>③身份安全在 Agentic 時代的必要性</strong>：「每個自主 agent 都有身份，每個身份都需要治理」——這是 CyberArk 收購的核心邏輯。Idira 平台將傳統 PAM 的控制能力民主化到所有使用者（人類+機器）。</p>
+        <p>Arora 也坦誠指出目前 AI 資安工具的兩大限制：<em>25% 的假陽性率</em>和「最後一哩路」的修補困難，強調平台解決方案（而非單點 AI 工具）才是唯一可持續的防禦架構。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub-theme B: 是否反映在數字上 -->
+  <div class="sub-title" style="margin-top: 28px;">B. AI影響是否已反映在財務數字上？量化分析</div>
+
+  <div class="card">
+    <div class="table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>維度</th>
+            <th class="th-crwd">CRWD ——已反映程度</th>
+            <th class="th-ftnt">FTNT ——已反映程度</th>
+            <th class="th-panw">PANW ——已反映程度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="metric-name">整體成長加速</td>
+            <td><span class="tag tag-beat">已反映</span><br>
+            <span style="font-size:11px;">營收成長連四季加速；net-new ARR +32%（加速）；FY27指引上調520bps</span></td>
+            <td><span class="tag tag-beat">已反映</span><br>
+            <span style="font-size:11px;">Billings +31%（遠超預期）；大型企業訂單數/金額各+60%+</span></td>
+            <td><span class="tag tag-beat">已反映</span><br>
+            <span style="font-size:11px;">Q3創記錄；RPO加速；全年指引全部上調</span></td>
+          </tr>
+          <tr>
+            <td class="metric-name">硬體/基礎設施 AI 需求</td>
+            <td><span class="tag tag-inline">不適用</span><br>
+            <span style="font-size:11px;">CRWD 是純軟體/SaaS 模型</span></td>
+            <td><span class="tag tag-beat">最直接反映</span><br>
+            <span style="font-size:11px;">產品收入+41%（含AI DC部署）；OT billings +70%；中東AI DC大型標案</span></td>
+            <td><span class="tag tag-beat">強烈反映</span><br>
+            <span style="font-size:11px;">硬體訂單+40%，十年最強；AI DC是重要貢獻，並計入硬體積壓訂單</span></td>
+          </tr>
+          <tr>
+            <td class="metric-name">AI 原生新產品 ARR 成長</td>
+            <td><span class="tag tag-beat">已反映且最快</span><br>
+            <span style="font-size:11px;">AIDR：不到兩季 +250% QoQ，零→Q2 pipeline $50M+；Charlotte AI ARR加速</span></td>
+            <td><span class="tag tag-inline">尚早期</span><br>
+            <span style="font-size:11px;">20+個AI產品，SecOps billings +23%；尚未有像AIDR的爆發性新品類</span></td>
+            <td><span class="tag tag-beat">已反映</span><br>
+            <span style="font-size:11px;">Prisma AIRS：100→300客戶；朝$100M ARR推進；XSIAM +100% YoY</span></td>
+          </tr>
+          <tr>
+            <td class="metric-name">Agentic/AI使用端資安</td>
+            <td><span class="tag tag-beat">領先全業</span><br>
+            <span style="font-size:11px;">AIDR、SGNL（NHI）、Falcon Shield的複合牽引是本季最大增量</span></td>
+            <td><span class="tag tag-inline">間接受益中</span><br>
+            <span style="font-size:11px;">FortiAI Gate提供Shadow AI可見性；SecOps ARR加速</span></td>
+            <td><span class="tag tag-beat">快速商業化中</span><br>
+            <span style="font-size:11px;">Prisma AIRS +Koi（端點AI）+Portkey（AI閘道）+ CyberArk（NHI）完整布局</span></td>
+          </tr>
+          <tr>
+            <td class="metric-name">利潤率是否改善</td>
+            <td><span class="tag tag-beat">是</span><br>
+            <span style="font-size:11px;">Subscription GM Q1新高 81%（+90bps）；OM +530bps；Rule of 40=59（上升）</span></td>
+            <td><span class="tag tag-beat">是，且最強</span><br>
+            <span style="font-size:11px;">OM Q1新高35.8%（+160bps）；GAAP OM 31.4%；FCF率58%——業內最高</span></td>
+            <td><span class="tag tag-inline">短期承壓</span><br>
+            <span style="font-size:11px;">OM YoY持平21.3%；整合成本、SBC消化中；FCF目標FY28=40%（路徑清晰）</span></td>
+          </tr>
+          <tr>
+            <td class="metric-name">是否增量預算（vs.重分配）</td>
+            <td><span class="tag tag-beat">明確增量</span><br>
+            <span style="font-size:11px;">Kurtz 在 Q&A 中明確表示：「兩年前沒有 token 預算，現在突然有了，是增量資金」</span></td>
+            <td><span class="tag tag-inline">混合</span><br>
+            <span style="font-size:11px;">管理層未明確區分，但強調AI DC採購是全新預算（非替換舊設備）</span></td>
+            <td><span class="tag tag-inline">部分增量</span><br>
+            <span style="font-size:11px;">Arora說「AI traffic需要更多inspection，需求從5%→12%，50%需求增量」；但整體也受益於平台整合</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sub-theme C: 各家AI策略定位差異 -->
+  <div class="sub-title" style="margin-top: 28px;">C. 三家AI資安策略定位比較 — 架構差異</div>
+
+  <div class="two-col">
+    <div class="card" style="border-top: 2px solid var(--crwd);">
+      <div class="card-title" style="color:#f87171;">CRWD：AI Agent 的保護者（Defense in Depth for AI）</div>
+      <div class="prose">
+        <p><strong>核心定位</strong>：Falcon 的 runtime sensor 天然就在 AI agent 運行的端點上，CRWD 是唯一能在「AI 真正執行的地方」做偵測與回應的公司。</p>
+        <p><strong>差異化</strong>：<em>AIDR = 下一代 EDR</em>，保護七個 AI 攻擊面（資料、模型、提示詞、agent、身份、基礎設施、互動層）。Falcon Flex 讓客戶快速採用新模組，形成難以替換的平台黏性。</p>
+        <p><strong>風險</strong>：AIDR 的商業化還在早期，指引上調建立在 pipeline 的信心上，能否轉化為 ARR 仍需觀察。</p>
+      </div>
+    </div>
+    <div class="card" style="border-top: 2px solid var(--ftnt);">
+      <div class="card-title" style="color:#fb923c;">FTNT：AI基礎設施的保護者（Securing the AI Stack）</div>
+      <div class="prose">
+        <p><strong>核心定位</strong>：FortiASIC 提供最高效能/最低能耗的硬體安全，是 AI 資料中心內部 east-west traffic segmentation 的天然選擇；同時在 OT 安全（AI 五層蛋糕底層）具有壟斷性地位。</p>
+        <p><strong>差異化</strong>：<em>唯一有 ASIC 的資安公司</em>；OT 領導者；Sovereign SASE 是市場唯一選項；30年 FortiOS 單一 OS 整合的積累。</p>
+        <p><strong>風險</strong>：服務收入滯後（Service revenue +11% vs billings +27%），轉換需要時間；AI SecOps 品牌感知度不如 CRWD/PANW。</p>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="border-top: 2px solid var(--panw); margin-top: 12px;">
+    <div class="card-title" style="color:#60a5fa;">PANW：全棧 AI 資安平台化（AI Security Platformization）</div>
+    <div class="prose" style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div>
+        <p><strong>核心定位</strong>：「AI 資安平台化的先行者」——唯一同時覆蓋 AI 端點（Koi）、AI 閘道（Portkey）、AI runtime（Prisma AIRS）、AI SOC（XSIAM）、可觀測性（Chronosphere）、身份安全（CyberArk/Idira）的完整平台。125M+ sensors + 17PB/day telemetry 構成數據護城河。</p>
+        <p><strong>差異化</strong>：<em>數據規模 + 平台整合 = AI 能力越強的飛輪</em>。Nikesh 的邏輯是「frontier model 作為攻擊工具是真實存在的，唯一反制方式是擁有最大量的即時遙測資料做 AI 防禦」。</p>
+      </div>
+      <div>
+        <p><strong>量化佐證</strong>：XSIAM（$600M ARR，+100%）+ Prisma AIRS（100→300客戶）+ Chronosphere（$300M ARR，Q2→Q3+50%）的組合，說明 AI 安全的多維度商業化已全面啟動。</p>
+        <p><strong>風險</strong>：大型 M&A（CyberArk + Chronosphere）帶來整合複雜度、SBC 攤銷壓力、Prisma Cloud→Cortex Cloud 遷移進度滯後。GAAP 目前虧損，30%產品收入含軟體（認列複雜）。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 總結 -->
+  <div class="sub-title" style="margin-top: 28px;">D. 綜合評估：AI主題的商業化成熟度排序</div>
+  <div class="card" style="background: var(--surface2);">
+    <div class="prose">
+      <p><strong>當季最具爆發力（短期）：CrowdStrike</strong> — AIDR 採用速度、net-new ARR 加速、指引大幅上調、Mythos 帶來的直接商業化最顯著。管理層對 AI 增量預算最有信心，是本次三家中 Earnings Call 後市場反應最正面的公司。</p>
+      <p><strong>最穩健複製型成長：Fortinet</strong> — AI 拉動硬體（產品收入+41%）、OT（+70%）、SASE（+31%）三管齊下，且盈利結構最健康（GAAP OM 31.4%，FCF率 58%）。管理層刻意保守指引，但執行紀律極強。AI 對 FTNT 的影響最直接反映在硬體出貨量上，屬於「有形資產」的增量。</p>
+      <p><strong>最長期佈局最完整：Palo Alto Networks</strong> — 平台化策略最全面，AI 從網路、端點、SOC、可觀測性到身份全面覆蓋；但消化大型收購中，短期利潤率承壓。Arora 的「Mythos 提升整個資安產業的終端價值」是最具高度的宏觀觀點，但需要時間兌現。</p>
+      <p style="color: var(--accent-amber); margin-top: 8px;"><strong>⚠ 共同注意事項</strong>：三家管理層的說法均非常正面，但均提到：①目前仍是「早期」（early innings），企業 AI 部署尚未全面鋪開；②客戶仍在評估/概念驗證階段；③真正的需求拐點（AI 全面生產部署）在未來6~18個月才會到來。當前的 pipeline 強勁，但 ARR 轉化速度仍需監控。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 6: 券商報告補充分析
+══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num" style="background:rgba(167,139,250,.2);color:#a78bfa;border:1px solid rgba(167,139,250,.3);">6</span>
+    <h2>券商報告補充：市場反應 × 多空論點 × 前章遺漏修正</h2>
+    <span class="ai-chip" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.25);color:#a78bfa;">📄 MS × Barclays × JPM × GS</span>
+  </div>
+
+  <!-- 市場反應定性 -->
+  <div class="sub-title">A. 市場如何看待這份財報？優於還是低於預期？</div>
+  <div class="card" style="border-left: 3px solid var(--warning); background: rgba(251,191,36,.04);">
+    <div class="card-title" style="color: var(--warning);">📊 結論：表面「略遜預期」，實質「指引大幅超預期」——短期賣壓，中期買入機會</div>
+    <div class="prose" style="margin-top: 10px;">
+      <p><strong>股票盤後下跌約10%</strong>（Goldman Sachs 用語：「indicated down 10% after hours」）。原因不在財報數字本身，而是三個前提：</p>
+      <p><strong>①預期已極高</strong>：公布前六週股價漲幅約 60~70%，市場預期已被大量消化，需要的是「超預期中的超預期」。</p>
+      <p><strong>②Q1 NNARR 的 beat 幅度偏薄</strong>：$256M 較市場預期僅高 +$3M~$7M（+1~3%），歷史上 CRWD 的季度 beat 通常為 $20M 左右。四家券商均注意到這個落差，是近期最主要的 bear pushback。</p>
+      <p><strong>③但全年指引大幅上調</strong>：FY27 淨新增 ARR 全年指引調高 +$52M，是本季實際 beat 金額的 7~8 倍。這是 bull case 的核心，代表管理層對 2H 有真實的加速信心，而不只是季度執行。所有四家券商（Morgan Stanley、Barclays、JP Morgan、Goldman Sachs）均維持正面評等，並一致將股價下跌定性為「potential buying opportunity」或「buying on weakness」。</p>
+    </div>
+    <div class="table-wrap" style="margin-top: 16px;">
+      <table>
+        <thead><tr>
+          <th>指標</th>
+          <th>實際值</th>
+          <th>vs. GS估計</th>
+          <th>vs. 市場共識(Street)</th>
+          <th>質性評估</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="metric-name">總營收</td><td class="mono">$1,386M</td><td class="mono pos">+1.7%</td><td class="mono pos">+1.7%</td><td><span class="tag tag-beat">Beat</span></td></tr>
+          <tr><td class="metric-name">期末 ARR</td><td class="mono">$5,509M</td><td class="mono pos">+0.1%</td><td class="mono pos">+0.1%</td><td><span class="tag tag-inline">In-Line</span></td></tr>
+          <tr><td class="metric-name">淨新增 ARR（核心指標）</td><td class="mono">$256M</td><td class="mono warn">+2.4% vs GS<br>+1.3% vs Street</td><td class="mono warn">歷史beat約$20M，本季僅$3~7M</td><td><span class="tag tag-inline">Skinny Beat</span></td></tr>
+          <tr><td class="metric-name">毛利率</td><td class="mono">78.6%</td><td class="mono pos">+51bps vs GS</td><td class="mono pos">+16bps</td><td><span class="tag tag-beat">Beat</span></td></tr>
+          <tr><td class="metric-name">Non-GAAP 營業利益率</td><td class="mono">23.5%</td><td class="mono pos">+79bps vs GS</td><td class="mono pos">+79bps</td><td><span class="tag tag-beat">Beat</span></td></tr>
+          <tr><td class="metric-name">Non-GAAP EPS</td><td class="mono">$1.10</td><td class="mono pos">+3.2% vs GS（$1.06e）</td><td class="mono pos">+2.8% vs Street</td><td><span class="tag tag-beat">Beat</span></td></tr>
+          <tr><td class="metric-name">自由現金流率</td><td class="mono">34%</td><td class="mono pos">+75bps vs GS</td><td class="mono pos">+114bps</td><td><span class="tag tag-beat">Beat</span></td></tr>
+          <tr><td class="metric-name">FY27 全年 NNARR 指引</td><td class="mono">+$52M vs 前次<br><span style="font-size:11px;color:var(--text-secondary);">前次中值 ~$1.239B → 新中值 $1.291B<br>成長率 ~23% → ~28%（+520bps）</span></td><td class="mono pos">Q1 beat 僅 $7M<br>→ 全年上調 $52M<br>（beat 幅度 7~8 倍的放大）</td><td class="mono pos">FY26 NNARR +25% YoY<br>FY27 新指引 +27.7%<br>→ 成長率本身加速</td><td><span class="tag tag-beat">Strong Beat</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 各家多空論點 -->
+  <div class="sub-title" style="margin-top: 28px;">B. 四家券商多空論點完整整理</div>
+
+  <!-- Morgan Stanley -->
+  <div class="company-block" style="margin-bottom: 14px;">
+    <div class="company-block-header" style="background: rgba(99,102,241,.08); border-bottom: 1px solid rgba(99,102,241,.25);">
+      <span class="badge" style="background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#818cf8;">Morgan Stanley</span>
+      <strong>Meta Marshall — 兩份報告（財報後 + 管理層見面會）</strong>
+    </div>
+    <div class="company-block-body">
+      <div class="two-col">
+        <div>
+          <div class="sub-title" style="color: var(--positive); font-size: 11px; margin-top: 0;">📈 多方論點</div>
+          <div class="prose" style="font-size: 12.5px;">
+            <p><strong>①指引上調的意義遠大於 Q1 beat 本身</strong>：管理層把 Q1 只有 $7M 的 beat，放大成全年 +$52M 的指引調升——代表的不是線性外推，而是對 Mythos 拐點後的加速真實信心。</p>
+            <p><strong>②管理層見面會提供更多細節</strong>：MS 在財報後當天舉辦了 George Kurtz、Burt Podbere、Michael Sentonas、Daniel Bernard 的投資人電話會。管理層表示 AI 需求「moving faster than expected」，且信心來源不只是 Q1 執行，而是 pipeline 和客戶行為的真實改變。</p>
+            <p><strong>③AIDR 採用速度超過歷史所有新產品</strong>：管理層認為 AIDR 採用速度比過去任何平台模組都快，原因是 Falcon sensor 已在端點，不需要額外部署，降低了新品採用門檻。</p>
+            <p><strong>④AI 機會不以盈利換成長</strong>：FCF 30%+維持不變，管理層對 SBC 稀釋和 M&A 紀律均表明克制立場。</p>
+            <p><strong>⑤股價下跌 = 買點</strong>：MS 明確表示 stock weakness should be viewed as buying opportunity，因為重點應聚焦在「更強的 2H 配置」而非 Q1 beat 幅度。</p>
+          </div>
+        </div>
+        <div>
+          <div class="sub-title" style="color: var(--negative); font-size: 11px; margin-top: 0;">📉 空方論點 / 風險提示</div>
+          <div class="prose" style="font-size: 12.5px;">
+            <p><strong>①預期已高</strong>：股價在過去一個月漲幅約 60%，市場對 Mythos 的期待已被計入，需要的是「超預期」而非只是「達標」。</p>
+            <p><strong>②Q1 beat 偏薄創造短期消化壓力</strong>：「skinny beat」（+3%）在估值昂貴的背景下，給市場提供了「賣消息」的理由，短期股價消化是合理的。</p>
+            <p><strong>③ 競爭與 2H 能見度仍需驗證</strong>：全年指引上調建立在 Q2 record pipeline 的轉換上，若下半年 pipeline 無法如期兌現，上調的信心就會被挑戰。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barclays -->
+  <div class="company-block" style="margin-bottom: 14px;">
+    <div class="company-block-header" style="background: rgba(52,211,153,.08); border-bottom: 1px solid rgba(52,211,153,.25);">
+      <span class="badge" style="background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);color:#34d399;">Barclays</span>
+      <strong>Saket Kalia — 最具辯證性，明確列出 bear pushback</strong>
+    </div>
+    <div class="company-block-body">
+      <div class="two-col">
+        <div>
+          <div class="sub-title" style="color: var(--positive); font-size: 11px; margin-top: 0;">📈 多方論點</div>
+          <div class="prose" style="font-size: 12.5px;">
+            <p><strong>①全年指引上調代表 Mythos 真實商業化</strong>：FY27 淨新增 ARR 從 +25% YoY 加速至 +28% YoY（成長率）——這是 Barclays 最核心的多頭論點，指引上調幅度是 Q1 beat 的 10 倍，反映管理層看到了更大規模的需求轉折。</p>
+            <p><strong>②雲端安全滯後類比</strong>：Barclays 明確指出一個重要框架——過去雲端基礎設施投資爆發時，雲端安全需求有滯後（security gap），最終這個 gap 開始收斂。AI 安全的 gap 現在比當時更寬，且正在開始被討論收斂，AIDR 就是那個收斂點。</p>
+            <p><strong>③FCF 30%+不受指引上調影響</strong>：重要的是管理層在提高全年 ARR/營收指引的同時，維持了 FCF margin 至少 30% 的承諾，排除了「成長換利潤」的疑慮。</p>
+            <p><strong>④立即性強的 AI 受益：Exposure Management + Falcon for IT</strong>：Mythos 後立即看到的需求不只是 AIDR，Exposure Management 和 Falcon for IT 都出現近乎年增一倍的採用，這是直接、可量化的短期受益。</p>
+          </div>
+        </div>
+        <div>
+          <div class="sub-title" style="color: var(--negative); font-size: 11px; margin-top: 0;">📉 空方論點（Barclays 明確說這是 bear pushback）</div>
+          <div class="prose" style="font-size: 12.5px;">
+            <p><strong>①Mythos 在 Q1 是「pipeline builder」而非「deal closer」</strong>：Barclays 最重要的觀點。Mythos 發生在 4 月（Q1 後半段），客戶對話雖然增加，但真正成交需要時間，因此 Q1 本身並未完整反映 Mythos 的商業化。這正是 Q1 beat 偏薄的合理解釋。</p>
+            <p><strong>②兩個不確定問題需要 Q2 數字驗證</strong>：（a）指引哲學是否改變了（更保守 vs. 更進取）？（b）Mythos 是否創造了 Q1 短暫的消費暫停（企業把預算重新評估中）？兩個問題的答案都需要 Q2 中段就業確認。</p>
+            <p><strong>③AIDR 的 CRWD 估算指出規模仍小</strong>：Barclays 自行估算 AIDR ARR 約 $1.4M（Q3 FY26）→ $7M（Q4）→ ~$25M（Q1 FY27），成長驚人但絕對量仍小，要真正 move the needle 需要更多時間。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JP Morgan -->
+  <div class="company-block" style="margin-bottom: 14px;">
+    <div class="company-block-header" style="background: rgba(251,191,36,.08); border-bottom: 1px solid rgba(251,191,36,.25);">
+      <span class="badge" style="background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#fbbf24;">JP Morgan</span>
+      <strong>Brian Essex — 最聚焦於結構性，引入「picks and shovels」框架</strong>
+    </div>
+    <div class="company-block-body">
+      <div class="two-col">
+        <div>
+          <div class="sub-title" style="color: var(--positive); font-size: 11px; margin-top: 0;">📈 多方論點</div>
+          <div class="prose" style="font-size: 12.5px;">
+            <p><strong>①指引加速 vs. FY26 是最重要的訊號</strong>：JPM 強調 FY27 NNARR 全年指引「implies NNARR acceleration vs. FY26」——這不只是上調，而是成長率本身的加速，比單一季度的 beat 幅度更具可持續性意義。</p>
+            <p><strong>②「Picks and Shovels」定位邏輯最清晰</strong>：JPM 沿用管理層的比喻：CRWD 是 AI 淘金潮的鏟子供應商，端點、雲端、身份、SIEM 全面覆蓋，無論哪個 AI 垂直行業成功，CRWD 都是必需品，不是選配。</p>
+            <p><strong>③AI 需求明確是增量預算</strong>：JPM 認同管理層的說法，Token 消費創造了全新的預算，而非從現有資安預算重分配。這使得 AI 安全不是零和博弈。</p>
+            <p><strong>④Falcon Flex 的 Re-Flex 動力被低估</strong>：多次 Re-Flex 客戶（130+）的平均 ARR 擴張達 51%，且通常在合約到期前 7 個月就主動回來擴張——這是一個非常罕見的客戶行為，說明平台黏性遠超過 retention 指標所呈現的。</p>
+            <p><strong>⑤AIDR 保護七個攻擊面，TAM 比 EDR 更大</strong>：JPM 把 AIDR 的 TAM 邏輯寫得最清楚：EDR 保護一個攻擊面（host），AIDR 保護七個（資料、模型、提示詞、agent、身份、基礎設施、互動層），平均每位員工將有 90 個 AI agent。</p>
+          </div>
+        </div>
+        <div>
+          <div class="sub-title" style="color: var(--negative); font-size: 11px; margin-top: 0;">📉 空方論點</div>
+          <div class="prose" style="font-size: 12.5px;">
+            <p><strong>①盤後下跌 = Q1 beat 幅度低於歷史水準</strong>：JPM 直接表明，「shares traded lower after-market as the degree of 1Q NNARR beat was low relative to historical performance」——市場確實對這個數字有失望。</p>
+            <p><strong>②2H 隱含強勁加速需要驗證</strong>：NNARR 全年季節性調整為 42% 上半年 / 58% 下半年，代表下半年加速要求極高，Q2 pipeline 的轉換率是關鍵 KPI。</p>
+            <p><strong>③風險：Mythos pipeline 能否在 Q2~Q3 有效轉化</strong>：是否真的如管理層所說在 pipeline 變成 ARR，還是對話多而交易慢，是需要持續觀察的核心 risk。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Goldman Sachs -->
+  <div class="company-block" style="margin-bottom: 14px;">
+    <div class="company-block-header" style="background: rgba(251,113,133,.08); border-bottom: 1px solid rgba(251,113,133,.25);">
+      <span class="badge" style="background:rgba(251,113,133,.15);border:1px solid rgba(251,113,133,.3);color:#fb7185;">Goldman Sachs</span>
+      <strong>Gabriela Borges — 最具獨立觀點，提出「AI 推理成本排擠效應」假說</strong>
+    </div>
+    <div class="company-block-body">
+      <div class="two-col">
+        <div>
+          <div class="sub-title" style="color: var(--positive); font-size: 11px; margin-top: 0;">📈 多方論點（三個結構性機會）</div>
+          <div class="prose" style="font-size: 12.5px;">
+            <p><strong>①AI 基礎設施支出 vs. AI 安全採用的時間差將開始收斂</strong>：GS 明確指出，「consistent with cloud security where there was a lag between infrastructure spend and security adoption」——現在的 AI 安全 gap 正開始被討論要收斂，且收斂的催化劑是企業 AI 成熟度（從 POC 到生產環境部署）。</p>
+            <p><strong>② SOC 升級週期驅動 SIEM + Charlotte AI</strong>：AI 讓威脅更快速，SOC 需要更多自動化——CRWD 的 SIEM 和 Charlotte AI 具有結構性低成本優勢，這是一個獨立的多年期升級週期。</p>
+            <p><strong>③次世代 AI 產品組合的集體影響力</strong>：GS 雖然承認每個單項（AIDR、Signal/SGNL、Seraphic、Shield、just-in-time PAM）規模都還小，但強調「collectively they may be able to move the needle」。集合效應將在未來幾年逐漸浮現。</p>
+          </div>
+        </div>
+        <div>
+          <div class="sub-title" style="color: var(--negative); font-size: 11px; margin-top: 0;">📉 空方論點（GS 最具差異化的觀點）</div>
+          <div class="prose" style="font-size: 12.5px;">
+            <p><strong>①「AI 推理成本排擠了傳統資安預算」假說</strong>：這是 GS 獨有的觀點，其他三家均未提及。GS 稱基於 RSA 會議（3 月底）的現場調查，發現 AI inference cost（token 費用）在 Q1 初期確實擠壓了部分企業對傳統資安類別的預算分配。這創造了一個短暫的消費暫停——之後 Mythos（4 月）帶來了需求的 step function 增加，扭轉了這個局面。這可以解釋為何 Q1 的 beat 偏薄，但並不改變長期趨勢。</p>
+            <p><strong>②$6M beat vs. 歷史 ~$20M = 低於典型水準</strong>：GS 的底線評估最直接：這是 below-typical beat，市場對此有合理的短期失望，尤其在股價已前傾大量期待的情況下。</p>
+            <p><strong>③漏洞管理需求大但直接變現機會有限</strong>：GS 指出，Mythos 後客戶最即時的關注是 vulnerability management（修補評估），但 GS「do not see a meaningful direct monetization opportunity for CrowdStrike to address this」——言下之意，這部分需求最終可能被諮詢公司和 SI 賺走，而非直接轉換為 CRWD 的 ARR。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 前章遺漏 -->
+  <div class="sub-title" style="margin-top: 28px;">C. 前章分析遺漏之處——補充修正</div>
+  <div class="card">
+    <div class="card-title" style="color: var(--accent-violet);">🔧 需要更正或補充的五個重要細節</div>
+    <div class="table-wrap" style="margin-top: 12px;">
+      <table style="font-size: 13px;">
+        <thead><tr><th>遺漏點</th><th>正確資訊（來自券商報告）</th><th>影響</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="metric-name">Q1 NNARR beat 幅度的定性</td>
+            <td>實際 beat 僅 +$3~7M（+1~3%），歷史正常 beat 約 +$20M。四家券商一致描述為「skinny beat」或「below typical」。我前章只說「超越指引上限」，未點出幅度偏薄是核心爭議。</td>
+            <td class="neg">這是股價下跌的主因，遺漏了最重要的市場反應邏輯</td>
+          </tr>
+          <tr>
+            <td class="metric-name">盤後股價反應</td>
+            <td>Goldman Sachs 明確指出盤後 <strong>下跌約 10%</strong>（「indicated down 10% after hours」）。前章分析未討論任何股價反應。</td>
+            <td class="neg">作為研究報告，忽略了第一手市場反應</td>
+          </tr>
+          <tr>
+            <td class="metric-name">Goldman Sachs 的「AI 推理成本排擠效應」假說</td>
+            <td>GS 基於 RSA 現場調查提出：Q1 初期 AI inference cost 擠壓了傳統資安預算，之後 Mythos（4 月）才扭轉。這是對 Q1 beat 偏薄的一個重要解釋框架，前章未收錄。</td>
+            <td class="warn">這個假說與 Barclays 的「Mythos is pipeline-builder not deal-closer」互相補充，提供了更完整的 Q1 weakness 解釋</td>
+          </tr>
+          <tr>
+            <td class="metric-name">AIDR 的小規模基數更精確</td>
+            <td>Barclays 自行估算：AIDR ARR 約 Q3 FY26 $1.4M → Q4 $7M → Q1 FY27 ~$25M（QoQ +250% 的基數非常小）。前章只說「QoQ +250%」而未說明絕對量仍極小，可能讓讀者高估現實規模。</td>
+            <td class="warn">需要同時呈現成長速度（極快）和絕對量（仍小），兩者缺一不可</td>
+          </tr>
+          <tr>
+            <td class="metric-name">Morgan Stanley 對 Fortinet 的評等</td>
+            <td>在 MS 的產業覆蓋清單中，FTNT 評等是 <strong>Underweight（自 2025-09-02 起）</strong>，而 CRWD 是 Overweight Top Pick，PANW 是 Overweight。這代表 MS 在整個資安板塊的選股偏好極度集中於 CRWD 和 PANW，對 FTNT 持保留態度——與 FTNT 強勁的 Q1 數字形成有趣的張力，前章未指出這個差異。</td>
+            <td class="warn">投資組合定位層面的重要資訊，說明各家對同一 AI 資安趨勢的「受益者排序」有差異</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 券商共識 -->
+  <div class="sub-title" style="margin-top: 24px;">D. 四家券商的核心共識框架</div>
+  <div class="card" style="background: var(--surface2);">
+    <div class="prose">
+      <p><strong>所有四家都同意的核心邏輯</strong>：AI 安全和 AI 基礎設施投資之間存在「時間差」（lag）——就像當年雲端基礎設施投資爆發後，雲端安全需求有明顯滯後，但最終都填滿了這個 gap。今天的 AI 安全 gap 比當年更大、更快，而且有了 Mythos 這個「Y2K 時刻」作為意識覺醒的催化劑，收斂速度可能更快。</p>
+      <p><strong>四家對短期分歧的地方</strong>：Q1 beat 幅度偏薄，是因為（a）Mythos 是 pipeline-builder 而非 deal-closer，所以延後到 Q2~Q3 體現（Barclays/JPM 的解釋）；還是（b）AI 推理成本在 Q1 初期短暫排擠了安全預算，4 月之後才改善（Goldman 的解釋）？兩種解釋都支持「這只是時間問題而非結構問題」的多頭觀點，但在 Q2 數字出來前都是假說。</p>
+      <p><strong>對你做投資決策的最關鍵指標</strong>：下一個 quarter 的淨新增 ARR 是否能達成或超越 $284~$286M 的 Q2 指引（ +28~29% YoY）——如果達成，Mythos pipeline 轉化論文成立，股票有望重新評估；如果再次只是 thin beat，則市場會重新質疑 Mythos 的商業化速度。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  本報告根據公開 Earnings Call 逐字稿整理，僅供投資研究參考，不構成投資建議。<br>
+  資料截至：CRWD 2026-06-04 ｜ FTNT 2026-05-07 ｜ PANW 2026-06-02
+</div>
+
+</div><!-- /page -->
+</body>
+</html>
